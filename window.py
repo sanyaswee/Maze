@@ -20,6 +20,15 @@ class Winodw:
         pg.mixer.music.play()
 
         # labels
+        font = pg.font.SysFont('bookmanoldstyle', 60)
+        self.lose = font.render('ПРОИГРЫШ', True, pg.Color('red'))
+        self.win_ = font.render('ВЫ ВЫИГРАЛИ', True, pg.Color('red'))
+        font = pg.font.SysFont('bookmanoldstyle', 20)
+        self.end_descript = font.render('Нажмите пробел для повтора, "esc" для выхода', True, pg.Color('red'))
+
+        # sounds
+        self.kick = pg.mixer.Sound('kick.ogg')
+        self.money = pg.mixer.Sound('money.ogg')
     
     def update(self):
         """Updates window"""
@@ -27,9 +36,18 @@ class Winodw:
         self.clock.tick(self.FPS)
     
     def blit_bg(self):
+        """Blits background"""
         self.win.blit(self.background, (0, 0))
-        # self.win.fill((255, 255, 255))
     
-    def lose(self):
-        # self.win.blit(self.lose, (600, 400))
-        pass
+    def lose_(self):
+        """Shows "lose" label"""
+        self.win.blit(self.lose, (200, 100))
+        self.describe()
+
+    def win__(self):
+        self.win.blit(self.win_, (200, 100))
+        self.describe()
+
+    def describe(self):
+        """Shows end_description"""
+        self.win.blit(self.end_descript, (100, 200))

@@ -48,7 +48,6 @@ class Enemy(Movable):
     direction = 'r'
 
     def go_round(self):
-        #self.rect = self.image.get_rect()
         """Goes left and right"""
         if self.rect.x > 600:
             self.direction = 'l'
@@ -66,4 +65,5 @@ class Wall(pg.sprite.Sprite):
         self.color = color
 
     def show(self, win):
+        """Shows the wall"""
         pg.draw.rect(win, self.color, self.rect)

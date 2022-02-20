@@ -13,7 +13,7 @@ hero = Movable()
 hero.tp(25, 400)
 
 
-enemy = Enemy('cyborg.png', scale=(80, 80), speed=3)
+enemy = Enemy('cyborg.png', scale=(70, 70), speed=2)
 enemy.tp(500, 250)
 
 
@@ -35,9 +35,14 @@ def collide_wall():
 
 
 finish = False
+win_ = False
 game = True
 while game:
-    if not finish:
+    # checking events
+    for event in pg.event.get():
+        if event.type == pg.QUIT:
+            game = False
+    if not finish and not win_:
         # bliting background
         win.blit_bg()
         # bliting sprites
@@ -47,10 +52,6 @@ while game:
         # bliting walls
         for wall in walls:
             wall.show(win.win)
-        # checking events
-        for event in pg.event.get():
-            if event.type == pg.QUIT:
-                game = False
         # moving
         keys = pg.key.get_pressed()
         if keys[pg.K_w] or keys[pg.K_UP]:
@@ -68,9 +69,27 @@ while game:
 
         enemy.go_round()
         # checking collision
-        if pg.sprite.collide_rect(hero, enemy)  or collide_wall():
+        if pg.sprite.collide_rect(hero, enemy) or collide_wall():
+            win.kick.play()
             finish = True
-    else:
-        pass
+        if pg.sprite.collide_rect(hero, treasure):
+            win.money.play()
+            win_ = True
+    elif finish:
+        win.lose_()
+        keys = pg.key.get_pressed()
+        if keys[pg.K_SPACE]:
+            finish = False
+            hero.tp(25, 400)
+        if keys[pg.K_ESCAPE]:
+            game = False
+    elif win_:
+        win.win__()
+        keys = pg.key.get_pressed()
+        if keys[pg.K_SPACE]:
+            win_ = False
+            hero.tp(25, 400)
+        if keys[pg.K_ESCAPE]:
+            game = False
     # updating
     win.update()
