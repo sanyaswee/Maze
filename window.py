@@ -18,6 +18,7 @@ class Winodw:
         pg.display.set_caption('Maze')
         pg.mixer.music.load('jungles.ogg')
         pg.mixer.music.play()
+        pg.display.set_icon(pg.image.load('hero.png'))
 
         # labels
         font = pg.font.SysFont('bookmanoldstyle', 60)
