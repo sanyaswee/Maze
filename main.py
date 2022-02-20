@@ -37,40 +37,40 @@ def collide_wall():
 finish = False
 game = True
 while game:
-    # bliting background
-    win.blit_bg()
-    # bliting sprites
-    hero.blit(win.win)
-    enemy.blit(win.win)
-    treasure.blit(win.win)
-    # bliting walls
-    for wall in walls:
-        wall.show(win.win)
-    # checking events
-    for event in pg.event.get():
-        if event.type == pg.QUIT:
-            game = False
-    # moving
-    keys = pg.key.get_pressed()
-    if keys[pg.K_w] or keys[pg.K_UP]:
-        if hero.rect.y >= 0:
-            hero.move('u')
-    if keys[pg.K_s] or keys[pg.K_DOWN]:
-        if hero.rect.y <= win.height - hero.scale[1]:
-            hero.move('d')
-    if keys[pg.K_d] or keys[pg.K_RIGHT]:
-        if hero.rect.x <= win.width - hero.scale[0]:
-            hero.move('r')
-    if keys[pg.K_a] or keys[pg.K_LEFT]:
-        if hero.rect.x >= 0:
-            hero.move('l')
-    
-    enemy.go_round()
-    # checking collision
-    """
-    if pg.sprite.collide_rect(hero, enemy)  or collide_wall():
-        #game = False
-        print('sdvs')
-    """
+    if not finish:
+        # bliting background
+        win.blit_bg()
+        # bliting sprites
+        hero.blit(win.win)
+        enemy.blit(win.win)
+        treasure.blit(win.win)
+        # bliting walls
+        for wall in walls:
+            wall.show(win.win)
+        # checking events
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                game = False
+        # moving
+        keys = pg.key.get_pressed()
+        if keys[pg.K_w] or keys[pg.K_UP]:
+            if hero.rect.y >= 0:
+                hero.move('u')
+        if keys[pg.K_s] or keys[pg.K_DOWN]:
+            if hero.rect.y <= win.scale[1] - hero.scale[1]:
+                hero.move('d')
+        if keys[pg.K_d] or keys[pg.K_RIGHT]:
+            if hero.rect.x <= win.scale[0] - hero.scale[0]:
+                hero.move('r')
+        if keys[pg.K_a] or keys[pg.K_LEFT]:
+            if hero.rect.x >= 0:
+                hero.move('l')
+
+        enemy.go_round()
+        # checking collision
+        if pg.sprite.collide_rect(hero, enemy)  or collide_wall():
+            finish = True
+    else:
+        pass
     # updating
     win.update()

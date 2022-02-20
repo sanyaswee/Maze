@@ -6,25 +6,20 @@ pg.init()
 
 class Winodw:
     def __init__(self):
-        self.width = 700
-        self.height = 500
-        self.name = 'Maze'
+        self.scale = (700, 500)
         self.background = pg.transform.scale(
             pg.image.load('background.jpg'),
-            (self.width, self.height)
+            self.scale
         )
-        self.rect = self.background.get_rect()
-        pg.mixer.music.load('jungles.ogg')
+        self.win = pg.display.set_mode(self.scale)
         self.clock = pg.time.Clock()
         self.FPS = 60
 
-        self.win = pg.display.set_mode((self.width, self.height))
-        pg.display.set_caption(self.name)
+        pg.display.set_caption('Maze')
+        pg.mixer.music.load('jungles.ogg')
         pg.mixer.music.play()
 
-        self.font = pg.font.SysFont('arial', 30)
-        self.lose = self.font.render('ПРОИГРЫШ', True, pg.Color('red'))
-        self.win = self.font.render('ПОБЕДА', True, pg.Color('red'))
+        # labels
     
     def update(self):
         """Updates window"""
@@ -32,8 +27,9 @@ class Winodw:
         self.clock.tick(self.FPS)
     
     def blit_bg(self):
-        # self.win.blit(self.background, (0, 0))
-        self.win.fill((255, 255, 255))
+        self.win.blit(self.background, (0, 0))
+        # self.win.fill((255, 255, 255))
     
     def lose(self):
-        self.win.blit(self.lose, (600, 400))
+        # self.win.blit(self.lose, (600, 400))
+        pass

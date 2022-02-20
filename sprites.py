@@ -21,7 +21,7 @@ class GameSprite(pg.sprite.Sprite):
         win.blit(self.image, (self.rect.x, self.rect.y))
     
     def tp(self, x, y):
-        """Updates cordinates"""
+        """Updates coordinates"""
         self.rect.x = x
         self.rect.y = y
 
@@ -61,13 +61,9 @@ class Enemy(Movable):
 class Wall(pg.sprite.Sprite):
     def __init__(self, x, y, scale=(15, 350), color=pg.Color('green')):
         super().__init__()
-        self.surf = pg.Surface(scale)
-        self.rect = self.surf.get_rect()
-        self.rect.x = x
-        self.rect.y = y
+        self.rect = pg.Rect((x, y), scale)
         self.scale = scale
         self.color = color
-        self.surf.fill(color)
 
     def show(self, win):
-        win.blit(self.surf, (self.rect.x, self.rect.y))
+        pg.draw.rect(win, self.color, self.rect)
